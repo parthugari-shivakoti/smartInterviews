@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Processor</title>
+    <script>
+        function processTransactions(transactions) {
+            let finalBalance = 0;
+            let totalDeposits = 0;
+            let totalWithdrawals = 0;
+
+            for (const transaction of transactions) {
+                if (transaction.type === 'deposit') {
+                    finalBalance += transaction.amount;
+                    totalDeposits += transaction.amount;
+                } else if (transaction.type === 'withdrawal') {
+                    finalBalance -= transaction.amount;
+                    totalWithdrawals += transaction.amount;
+                } else {
+                    console.warn(`Unknown transaction type: ${transaction.type}`);
+                    //  Consider throwing an error for unknown transaction types:
+                    //  throw new Error(`Unknown transaction type: ${transaction.type}`);
+                }
+            }
+
+            return {
+                finalBalance: finalBalance,
+                totalDeposits: totalDeposits,
+                totalWithdrawals: totalWithdrawals
+            };
+        }
+
+        // --- Example Usage ---
+        const transactions = [
+            { type: 'deposit', amount: 100 },
+            { type: 'withdrawal', amount: 25 },
+            { type: 'deposit', amount: 200 },
+            { type: 'withdrawal', amount: 50 },
+            { type: 'deposit', amount: 50 },
+            { type: 'invalid', amount: 10 }  // Example of an invalid transaction type
+        ];
+
+        const result = processTransactions(transactions);
+        document.writeln(`<h1>Transaction Summary:- finalBalance:${result['finalBalance']}, totalDeposits: ${result['totalDeposits']}, totalDeposits: ${result['totalDeposits']}: ${result['totalWithdrawals']} </h1>`);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
