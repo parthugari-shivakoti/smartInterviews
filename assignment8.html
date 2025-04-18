@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic List Example</title>
+    <script>
+        // This script will add and remove items from the list dynamically.
+        window.onload = function() {
+
+            // 1. Get references to the elements we'll be working with
+            const container = document.getElementById('container');
+            const myList = document.getElementById('myList');
+            const addButton = document.getElementById('addButton');
+
+            // 2. Function to add a new item to the list
+            function addItemToList() {
+                const newItem = document.createElement('li');
+                newItem.className = 'item';  // Add the 'item' class
+                newItem.textContent = 'New Item';
+                myList.appendChild(newItem); // Append to the ul
+                console.log("New item added to the list.");
+
+                // Add the event listener for removing the item when clicked.
+                newItem.addEventListener('click', removeItemFromList);
+            }
+
+            // 3. Function to remove an item from the list
+            function removeItemFromList(event) {
+                const itemToRemove = event.target; // The clicked element
+                itemToRemove.remove(); // Remove it from the DOM
+                console.log("Item removed from the list.");
+            }
+
+            // 4. Event listener for the "Add Item" button
+            addButton.addEventListener('click', addItemToList);
+            console.log("Add Item button event listener added.");
+
+            // 5. Event listener for existing list items to be removed on click.
+            const existingListItems = myList.getElementsByClassName('item');
+            for (let i = 0; i < existingListItems.length; i++) {
+                existingListItems[i].addEventListener('click', removeItemFromList);
+            }
+            console.log("Event listeners added to existing list items for removal.");
+        };
+    </script>
+    <style>
+        #container {
+            font-family: sans-serif;
+            padding: 20px;
+            border: 1px solid #ccc;
+            margin: 20px auto;
+            width: 300px;
+            background-color: rgb(100, 280, 80,0.7) ;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        li {
+            padding: 8px;
+            margin: 3px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer; /* Make it clear it's clickable */
+        }
+        li:hover {
+            background-color: #9ca7f9; /* Slight background change on hover */
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4c04db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 700;
+        }
+        button:hover {
+            background-color: #86d93e;
+            color: rgb(0, 0, 0);
+        }
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>My List</h1>
+        <ul id="myList">
+            <li class="item">Item 1</li>
+            <li class="item">Item 2</li>
+            <li class="item">Item 3</li>
+        </ul>
+        <button id="addButton">Add Item</button>
+    </div>
+</body>
+</html>
