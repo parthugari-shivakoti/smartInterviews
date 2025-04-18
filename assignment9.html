@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Counter</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .counter-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            margin: 50px auto;
+            width: 280px;
+            background-color: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+            animation: fadeIn 1s ease, pulse 2s infinite alternate;
+        }
+        .counter-display {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #00ff00;
+            padding: 10px;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            width: 180px;
+            text-align: center;
+            background-color: #000;
+            letter-spacing: 5px;
+            animation: glitch 0.5s infinite;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+        .counter-button {
+            padding: 10px 15px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            background-color: #000;
+            color: #00ff00;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+            box-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
+        }
+        .counter-button:hover {
+            background-color: #00ff00;
+            color: #000;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        .counter-button:disabled {
+            background-color: #000;
+            color: #666;
+            border-color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="counter-container">
+        <div class="counter-display" id="counterDisplay">0</div>
+        <div class="button-container">
+            <button class="counter-button" id="incrementButton">Increment</button>
+            <button class="counter-button" id="decrementButton">Decrement</button>
+        </div>
+    </div>
+    <script>
+        let counter = 0;
+        const counterDisplay = document.getElementById("counterDisplay");
+        const incrementButton = document.getElementById("incrementButton");
+        const decrementButton = document.getElementById("decrementButton");
+
+        function updateDisplay() {
+            counterDisplay.textContent = counter;
+            decrementButton.disabled = counter <= 0;
+        }
+
+        incrementButton.addEventListener("click", () => {
+            counter++;
+            updateDisplay();
+        });
+
+        decrementButton.addEventListener("click", () => {
+            if (counter > 0) {
+                counter--;
+                updateDisplay();
+            }
+        });
+
+        updateDisplay();
+    </script>
+</body>
+</html>
