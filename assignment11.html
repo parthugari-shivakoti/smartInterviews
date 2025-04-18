@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group by Category</title>
+    <script>
+        function groupByCategory(items, categoryKey) {
+            const groupedObject = {};
+
+            for (const item of items) {
+                const categoryValue = item[categoryKey];
+
+                if (groupedObject[categoryValue]) {
+                    groupedObject[categoryValue].push(item);
+                } else {
+                    groupedObject[categoryValue] = [item];
+                }
+            }
+
+            return groupedObject;
+        }
+        const products = [
+            { name: 'Laptop', category: 'Electronics', price: 1200 },
+            { name: 'T-Shirt', category: 'Apparel', price: 25 },
+            { name: 'Mouse', category: 'Electronics', price: 30 },
+            { name: 'Jeans', category: 'Apparel', price: 70 },
+        ];
+
+        const groupedByCategoryResult = groupByCategory(products, 'category');
+        const groupedByPriceResult = groupByCategory(products, 'price');
+
+        // Function to display the output in HTML
+        function displayOutput(containerId, title, groupedData) {
+            const container = document.getElementById(containerId);
+            let outputHTML = `<h3>${title}</h3>`;
+            for (const key in groupedData) {
+                outputHTML += `<p><strong>${key}:</strong></p><ul>`;
+                groupedData[key].forEach(item => {
+                    outputHTML += `<li>${JSON.stringify(item)}</li>`;
+                });
+                outputHTML += `</ul>`;
+            }
+            container.innerHTML = outputHTML;
+        }
+
+        window.onload = function() {
+            displayOutput('outputByCategory', 'Grouped by Category', groupedByCategoryResult);
+            displayOutput('outputByPrice', 'Grouped by Price', groupedByPriceResult);
+        };
+    </script>
+</head>
+<body>
+    <div id="outputByCategory"></div>
+    <div id="outputByPrice"></div>
+</body>
+</html>
