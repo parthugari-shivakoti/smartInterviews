@@ -1,31 +1,30 @@
-const string = "rarararararbdcds";
-
-function palind(string) {
-    let mL = 0, i = 0, j = 1;
-    let palin = "";
-
-    while (j <= string.length) {
-        let ss = string.slice(i, j);
-        if (isPalindrome(ss) && ss.length > mL) {
-            mL = ss.length;
-            palin = ss;
-        }
-        j++;
-
-        // reset window if needed
-        if (j - i > string.length) {
-            i++;
-            j = i + 1;
+let str = "amanaplanacanalpanama";
+logestSS(str);
+function logestSS(str){
+    let ml = 1;
+    let ss = str[0];
+    let i=0,j=i+1;
+    for(let i=0;i<str.length;i++){
+        for(let j=i+ml;j<str.length;j++){
+            Subs = str.slice(i,j);
+            // console.log(Subs);
+            if(isPalind(Subs) && ml<Subs.length){
+                ml = Subs.length;
+                ss = Subs;
+            }
         }
     }
-
-    console.log("Longest Palindromic Substring:", palin);
+    console.log("Palindrome is :",ss," and length is:", ml);
 }
 
-function isPalindrome(str) {
-    let cleanedStr = str.replace(/[^A-Za-z0-9]/g, '').toLowerCase(); 
-    let reversedStr = cleanedStr.split('').reverse().join('');
-    return cleanedStr === reversedStr;
+function isPalind(str){
+    let i=0,j=str.length-1;
+    while(i<j){
+        if(str[i]!=str[j]){
+            return false;
+        }
+        i++;
+        j--;
+        return true;
+    }
 }
-
-palind(string);
